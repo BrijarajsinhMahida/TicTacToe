@@ -1,7 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
 const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
@@ -25,22 +23,6 @@ const io = new Server(server, {
 
 // Middleware
 app.use(express.json());
-
-// Swagger Configuration
-const swaggerOptions = {
-    swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Tic-Tac-Toe API',
-            version: '1.0.0',
-            description: 'APIs for a turn-based Tic-Tac-Toe game',
-        },
-        servers: [{ url: 'http://localhost:5000' }],
-    },
-    apis: ['./routes/*.js'], // Points to API docs in route files
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // MongoDB Connection
 mongoose
